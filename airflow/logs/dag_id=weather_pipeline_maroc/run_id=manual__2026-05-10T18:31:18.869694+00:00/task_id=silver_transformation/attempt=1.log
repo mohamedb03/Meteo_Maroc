@@ -1,0 +1,36 @@
+{"timestamp":"2026-05-10T18:31:40.052999Z","level":"info","event":"setup plugin alembic.autogenerate.schemas","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.053129Z","level":"info","event":"setup plugin alembic.autogenerate.tables","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.053184Z","level":"info","event":"setup plugin alembic.autogenerate.types","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.053222Z","level":"info","event":"setup plugin alembic.autogenerate.constraints","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.053255Z","level":"info","event":"setup plugin alembic.autogenerate.defaults","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.053286Z","level":"info","event":"setup plugin alembic.autogenerate.comments","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-10T18:31:40.224625Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":209}
+{"timestamp":"2026-05-10T18:31:40.224958Z","level":"info","event":"Filling up the DagBag from /Users/macbookair/Desktop/projet_meteo/airflow/dags/weather_dag.py","logger":"airflow.dag_processing.dagbag.BundleDagBag","filename":"dagbag.py","lineno":469}
+{"timestamp":"2026-05-10T18:31:40.310794Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"UserWarning","filename":"/Users/macbookair/Desktop/projet_meteo/airflow/dags/weather_dag.py","lineno":14,"logger":"py.warnings"}
+{"timestamp":"2026-05-10T18:31:45.338402Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.338720Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.338838Z","level":"info","event":"Current task name:silver_transformation","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.338892Z","level":"info","event":"Dag name:weather_pipeline_maroc","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.340050Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.340306Z","level":"info","event":"  TRANSFORMATION SILVER LAYER — 2026-05-10 19:31:45","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.340391Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.340987Z","level":"info","event":"   ↪ 8 fichiers JSON trouvés dans le Bronze","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.347641Z","level":"info","event":"   ↪ DataFrame construit : 8 lignes, 17 colonnes","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.347716Z","level":"info","event":"   ↪ Nettoyage : 8 lignes au départ","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.355385Z","level":"info","event":"   ↪ 8 lignes après nettoyage","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.358897Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.359193Z","level":"info","event":"   ✅ Silver Layer sauvegardé : data/silver/weather_clean/weather_clean.csv","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.359326Z","level":"info","event":"   ✅ 8 lignes × 18 colonnes","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.359448Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.359605Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.359713Z","level":"info","event":"   Aperçu des 5 premières lignes :","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361418Z","level":"info","event":"     city  temperature  humidity  wind_speed weather_main     event_timestamp","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361604Z","level":"info","event":"Marrakech        25.04        38        3.09        Clear 2026-05-10 17:00:29","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361748Z","level":"info","event":"Marrakech        25.04        38        3.60        Clear 2026-05-10 19:31:33","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361805Z","level":"info","event":"   Dakhla        22.01        60        8.23        Clear 2026-05-10 17:02:59","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361845Z","level":"info","event":"   Dakhla        20.01        73        7.72       Clouds 2026-05-10 19:31:34","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361881Z","level":"info","event":"   Tanger        19.64        77        5.66       Clouds 2026-05-10 17:01:40","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.361444Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":229}
+{"timestamp":"2026-05-10T18:31:45.376099Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.376190Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2026-05-10T18:31:45.376480Z","level":"info","event":"Task operator:<Task(PythonOperator): silver_transformation>","logger":"task.stdout"}

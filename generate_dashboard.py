@@ -1,0 +1,650 @@
+"""
+Génération du Dashboard HTML
+=============================
+Lit les données du Gold Layer et génère un dashboard HTML interactif.
+"""
+
+import os
+import json
+import pandas as pd
+from datetime import datetime
+from config import GOLD_PATH
+
+
+def generate_dashboard():
+    print("=" * 60)
+    print(f"  GENERATION DU DASHBOARD — {datetime.now():%Y-%m-%d %H:%M:%S}")
+    print("=" * 60)
+
+    # Lire les données Gold
+    scores_file = os.path.join(GOLD_PATH, "weather_scores.csv")
+    if not os.path.exists(scores_file):
+        print(f"   ❌ Fichier Gold introuvable : {scores_file}")
+        return
+
+    df = pd.read_csv(scores_file)
+    print(f"   ↪ {len(df)} villes chargées")
+
+    # Préparer les données pour JavaScript
+    data = df.to_dict(orient="records")
+    best_city = df.iloc[0].to_dict()
+    generation_date = datetime.now().strftime("%d/%m/%Y à %H:%M")
+
+    # Convertir en JSON pour insertion dans le HTML
+    data_json = json.dumps(data, ensure_ascii=False, default=str)
+    best_json = json.dumps(best_city, ensure_ascii=False, default=str)
+
+    # Template HTML avec design soigné
+    html = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Météo Maroc — Pipeline 4IASD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root {{
+    --bg: #0a0e1a;
+    --bg-card: #131829;
+    --bg-elevated: #1a2038;
+    --accent: #f59e0b;
+    --accent-bright: #fbbf24;
+    --text: #e5e7eb;
+    --text-dim: #94a3b8;
+    --border: #1e293b;
+    --green: #10b981;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --orange: #f97316;
+    --gradient: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+}}
+
+* {{ margin: 0; padding: 0; box-sizing: border-box; }}
+
+body {{
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem;
+    background-image:
+        radial-gradient(at 20% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, rgba(59, 130, 246, 0.05) 0px, transparent 50%);
+}}
+
+.container {{
+    max-width: 1400px;
+    margin: 0 auto;
+}}
+
+/* ===== HEADER ===== */
+header {{
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+}}
+
+header h1 {{
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}}
+
+header .subtitle {{
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+header .meta {{
+    text-align: right;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+header .meta strong {{
+    color: var(--accent-bright);
+    font-size: 1.5rem;
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+}}
+
+/* ===== BEST CITY HERO ===== */
+.hero {{
+    background: var(--gradient);
+    border-radius: 24px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    color: #1a1208;
+}}
+
+.hero::before {{
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    filter: blur(60px);
+}}
+
+.hero-label {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}}
+
+.hero-city {{
+    font-family: 'Fraunces', serif;
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+}}
+
+.hero-score {{
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+.hero-stats {{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+    position: relative;
+    z-index: 1;
+}}
+
+.hero-stat {{
+    border-left: 2px solid rgba(26, 18, 8, 0.3);
+    padding-left: 1rem;
+}}
+
+.hero-stat-label {{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    margin-bottom: 0.3rem;
+}}
+
+.hero-stat-value {{
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 700;
+}}
+
+/* ===== GRID DES VILLES ===== */
+.section-title {{
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}}
+
+.section-title span {{
+    color: var(--accent);
+}}
+
+.cities-grid {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}}
+
+.city-card {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}}
+
+.city-card:hover {{
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}}
+
+.city-card.rank-1 {{
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.1) 100%);
+}}
+
+.rank-badge {{
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: var(--gradient);
+    color: #1a1208;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+.city-name {{
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}}
+
+.city-condition {{
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+.city-score {{
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}}
+
+.city-score-value {{
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-bright);
+}}
+
+.city-score-total {{
+    color: var(--text-dim);
+    font-size: 1rem;
+}}
+
+.city-category {{
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}}
+
+.cat-Excellent {{ background: rgba(16, 185, 129, 0.2); color: var(--green); }}
+.cat-Bon {{ background: rgba(59, 130, 246, 0.2); color: var(--blue); }}
+.cat-Moyen {{ background: rgba(249, 115, 22, 0.2); color: var(--orange); }}
+.cat-Mauvais {{ background: rgba(239, 68, 68, 0.2); color: var(--red); }}
+
+.city-metrics {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}}
+
+.metric {{
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+.metric span {{
+    color: var(--text-dim);
+    margin-right: 0.5rem;
+}}
+
+/* ===== CHARTS ===== */
+.charts-grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}}
+
+.chart-card {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+}}
+
+.chart-card h3 {{
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}}
+
+.chart-container {{
+    position: relative;
+    height: 300px;
+}}
+
+/* ===== MAP ===== */
+.map-section {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}}
+
+.map-section h3 {{
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}}
+
+#map {{
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+}}
+
+.leaflet-popup-content-wrapper {{
+    background: var(--bg-elevated);
+    color: var(--text);
+    border-radius: 8px;
+}}
+
+.leaflet-popup-content {{
+    font-family: 'Manrope', sans-serif;
+    margin: 1rem;
+}}
+
+.leaflet-popup-content strong {{
+    color: var(--accent-bright);
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+}}
+
+.leaflet-popup-tip {{
+    background: var(--bg-elevated);
+}}
+
+/* ===== FOOTER ===== */
+footer {{
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+}}
+
+footer .brand {{
+    color: var(--accent);
+}}
+
+@media (max-width: 768px) {{
+    body {{ padding: 1rem; }}
+    header h1 {{ font-size: 2rem; }}
+    .hero {{ padding: 2rem 1.5rem; }}
+    .hero-city {{ font-size: 3rem; }}
+    .hero-stats {{ grid-template-columns: repeat(2, 1fr); }}
+    .charts-grid {{ grid-template-columns: 1fr; }}
+}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+    <div>
+        <h1>Météo Maroc</h1>
+        <div class="subtitle">› Pipeline ETL 4IASD · Architecture Medallion · Bronze→Silver→Gold</div>
+    </div>
+    <div class="meta">
+        <strong>{generation_date}</strong>
+        Dernière exécution
+    </div>
+</header>
+
+<!-- HERO : MEILLEURE VILLE -->
+<div class="hero">
+    <div class="hero-label">› Meilleure destination weekend</div>
+    <div class="hero-city" id="bestCity"></div>
+    <div class="hero-score" id="bestScore"></div>
+
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-label">Température</div>
+            <div class="hero-stat-value" id="bestTemp"></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-label">Humidité</div>
+            <div class="hero-stat-value" id="bestHum"></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-label">Vent</div>
+            <div class="hero-stat-value" id="bestWind"></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-label">Ciel</div>
+            <div class="hero-stat-value" id="bestSky"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CLASSEMENT VILLES -->
+<h2 class="section-title">Classement <span>complet</span></h2>
+<div class="cities-grid" id="citiesGrid"></div>
+
+<!-- CHARTS -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3>Score météo par ville</h3>
+        <div class="chart-container">
+            <canvas id="scoreChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Décomposition des sous-scores</h3>
+        <div class="chart-container">
+            <canvas id="radarChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- CARTE -->
+<div class="map-section">
+    <h3>Carte du Maroc</h3>
+    <div id="map"></div>
+</div>
+
+<footer>
+    Dashboard généré par le pipeline <span class="brand">weather_pipeline_maroc</span> ·
+    Projet d'Architecture des Données · EMSI 4IASD · 2024-2025
+</footer>
+
+</div>
+
+<script>
+// Injection des données
+const data = {data_json};
+const bestCity = {best_json};
+
+// ===== HERO =====
+document.getElementById('bestCity').textContent = bestCity.city;
+document.getElementById('bestScore').textContent = `${{bestCity.weather_score}} / 100 — ${{bestCity.score_category}}`;
+document.getElementById('bestTemp').textContent = `${{bestCity.temperature.toFixed(1)}}°C`;
+document.getElementById('bestHum').textContent = `${{bestCity.humidity}}%`;
+document.getElementById('bestWind').textContent = `${{bestCity.wind_speed.toFixed(1)}} m/s`;
+document.getElementById('bestSky').textContent = bestCity.weather_main;
+
+// ===== CARTES DES VILLES =====
+const grid = document.getElementById('citiesGrid');
+data.forEach(city => {{
+    const isFirst = city.rank === 1;
+    grid.innerHTML += `
+        <div class="city-card ${{isFirst ? 'rank-1' : ''}}">
+            <div class="rank-badge">${{city.rank}}</div>
+            <div class="city-name">${{city.city}}</div>
+            <div class="city-condition">${{city.weather_main}}</div>
+            <div class="city-score">
+                <span class="city-score-value">${{city.weather_score}}</span>
+                <span class="city-score-total">/ 100</span>
+            </div>
+            <div class="city-category cat-${{city.score_category}}">${{city.score_category}}</div>
+            <div class="city-metrics">
+                <div class="metric"><span>Temp</span>${{city.temperature.toFixed(1)}}°C</div>
+                <div class="metric"><span>Hum</span>${{city.humidity}}%</div>
+                <div class="metric"><span>Vent</span>${{city.wind_speed.toFixed(1)}} m/s</div>
+                <div class="metric"><span>Ciel</span>${{city.score_sky}}/100</div>
+            </div>
+        </div>
+    `;
+}});
+
+// ===== CHART : Score par ville =====
+new Chart(document.getElementById('scoreChart'), {{
+    type: 'bar',
+    data: {{
+        labels: data.map(d => d.city),
+        datasets: [{{
+            label: 'Score météo',
+            data: data.map(d => d.weather_score),
+            backgroundColor: data.map(d =>
+                d.rank === 1 ? '#f59e0b' :
+                d.score_category === 'Excellent' ? '#10b981' :
+                d.score_category === 'Bon' ? '#3b82f6' :
+                d.score_category === 'Moyen' ? '#f97316' : '#ef4444'
+            ),
+            borderRadius: 8,
+        }}]
+    }},
+    options: {{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {{ legend: {{ display: false }} }},
+        scales: {{
+            y: {{
+                beginAtZero: true,
+                max: 100,
+                grid: {{ color: '#1e293b' }},
+                ticks: {{ color: '#94a3b8', font: {{ family: 'JetBrains Mono' }} }}
+            }},
+            x: {{
+                grid: {{ display: false }},
+                ticks: {{ color: '#e5e7eb', font: {{ family: 'Manrope', weight: '600' }} }}
+            }}
+        }}
+    }}
+}});
+
+// ===== CHART RADAR : sous-scores =====
+new Chart(document.getElementById('radarChart'), {{
+    type: 'radar',
+    data: {{
+        labels: ['Température', 'Humidité', 'Vent', 'Ciel'],
+        datasets: data.map((d, i) => ({{
+            label: d.city,
+            data: [d.score_temperature, d.score_humidity, d.score_wind, d.score_sky],
+            borderColor: ['#f59e0b', '#10b981', '#3b82f6', '#ef4444'][i] || '#94a3b8',
+            backgroundColor: ['#f59e0b22', '#10b98122', '#3b82f622', '#ef444422'][i] || '#94a3b822',
+            borderWidth: 2,
+        }}))
+    }},
+    options: {{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {{
+            legend: {{
+                position: 'bottom',
+                labels: {{ color: '#e5e7eb', font: {{ family: 'Manrope' }} }}
+            }}
+        }},
+        scales: {{
+            r: {{
+                beginAtZero: true,
+                max: 100,
+                grid: {{ color: '#1e293b' }},
+                angleLines: {{ color: '#1e293b' }},
+                pointLabels: {{ color: '#e5e7eb', font: {{ family: 'Manrope', weight: '600' }} }},
+                ticks: {{ color: '#94a3b8', backdropColor: 'transparent' }}
+            }}
+        }}
+    }}
+}});
+
+// ===== CARTE LEAFLET =====
+const map = L.map('map', {{scrollWheelZoom: false}}).setView([29.5, -8.0], 5);
+L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+    attribution: '© OpenStreetMap',
+    maxZoom: 19
+}}).addTo(map);
+
+data.forEach(city => {{
+    const color = city.rank === 1 ? '#f59e0b' :
+                  city.score_category === 'Excellent' ? '#10b981' :
+                  city.score_category === 'Bon' ? '#3b82f6' :
+                  city.score_category === 'Moyen' ? '#f97316' : '#ef4444';
+
+    const radius = 15 + (city.weather_score / 100) * 20;
+
+    L.circleMarker([city.latitude, city.longitude], {{
+        radius: radius,
+        fillColor: color,
+        color: '#fff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.7
+    }}).addTo(map).bindPopup(`
+        <strong>${{city.city}}</strong><br>
+        Rang #${{city.rank}} — ${{city.score_category}}<br>
+        <b style="color:${{color}}">${{city.weather_score}} / 100</b><br>
+        ${{city.temperature.toFixed(1)}}°C · ${{city.humidity}}% · ${{city.weather_main}}
+    `);
+}});
+</script>
+
+</body>
+</html>"""
+
+    # Sauvegarder
+    output_file = os.path.join(GOLD_PATH, "dashboard.html")
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    print("=" * 60)
+    print(f"   ✅ Dashboard généré : {output_file}")
+    print(f"   ✅ Ouvre-le dans ton navigateur !")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    generate_dashboard()

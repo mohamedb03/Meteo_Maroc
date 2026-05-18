@@ -1,0 +1,2 @@
+city,country,latitude,longitude,date,temperature,humidity,wind_speed,weather_main,score_temperature,score_humidity,score_wind,score_sky,weather_score,score_category,rank,event_timestamp,ingestion_timestamp
+Marrakech,MA,31.6315,-8.0083,2026-05-18,23.04,49,3.6,Clouds,100.0,100.0,100.0,60,92.0,Excellent,1,2026-05-18 13:10:57,2026-05-18 13:14:16.268020

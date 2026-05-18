@@ -1,0 +1,5 @@
+city,country,latitude,longitude,date,temperature,humidity,wind_speed,weather_main,score_temperature,score_humidity,score_wind,score_sky,weather_score,score_category,rank,event_timestamp,ingestion_timestamp
+Marrakech,MA,31.6315,-8.0083,2026-05-18,23.04,49,3.6,Clouds,100.0,100.0,100.0,60,92.0,Excellent,1,2026-05-18 13:10:57,2026-05-18 13:14:16.268020
+Dakhla,MA,23.6941,-15.9431,2026-05-18,22.01,49,12.86,Clear,100.0,100.0,37.120000000000005,100,87.42,Excellent,2,2026-05-18 13:14:14,2026-05-18 13:14:16.270445
+Tanger,MA,35.7806,-5.8137,2026-05-18,19.64,60,4.63,Clouds,88.2,100.0,100.0,60,87.28,Excellent,3,2026-05-18 13:10:00,2026-05-18 13:14:16.272706
+Essaouira,MA,31.5125,-9.77,2026-05-18,26.72,38,7.2,Clouds,96.4,96.0,82.4,60,86.24,Excellent,4,2026-05-18 13:14:14,2026-05-18 13:14:16.275100

@@ -1,0 +1,45 @@
+{
+  "coord": {
+    "lon": -9.77,
+    "lat": 31.5125
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "nuageux",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 20.72,
+    "feels_like": 20.62,
+    "temp_min": 20.72,
+    "temp_max": 20.72,
+    "pressure": 1017,
+    "humidity": 68,
+    "sea_level": 1017,
+    "grnd_level": 1014
+  },
+  "visibility": 8000,
+  "wind": {
+    "speed": 4.12,
+    "deg": 310
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1778437894,
+  "sys": {
+    "type": 1,
+    "id": 2392,
+    "country": "MA",
+    "sunrise": 1778391987,
+    "sunset": 1778441074
+  },
+  "timezone": 3600,
+  "id": 2549263,
+  "name": "Essaouira",
+  "cod": 200
+}

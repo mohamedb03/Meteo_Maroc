@@ -1,0 +1,69 @@
+{"timestamp":"2026-05-18T12:14:18.139851Z","level":"info","event":"setup plugin alembic.autogenerate.schemas","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.140009Z","level":"info","event":"setup plugin alembic.autogenerate.tables","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.140054Z","level":"info","event":"setup plugin alembic.autogenerate.types","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.140092Z","level":"info","event":"setup plugin alembic.autogenerate.constraints","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.140150Z","level":"info","event":"setup plugin alembic.autogenerate.defaults","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.140192Z","level":"info","event":"setup plugin alembic.autogenerate.comments","logger":"alembic.runtime.plugins","filename":"plugins.py","lineno":37}
+{"timestamp":"2026-05-18T12:14:18.331157Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":209}
+{"timestamp":"2026-05-18T12:14:18.331539Z","level":"info","event":"Filling up the DagBag from /Users/macbookair/Desktop/projet_meteo/airflow/dags/weather_dag.py","logger":"airflow.dag_processing.dagbag.BundleDagBag","filename":"dagbag.py","lineno":469}
+{"timestamp":"2026-05-18T12:14:18.411582Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"UserWarning","filename":"/Users/macbookair/Desktop/projet_meteo/airflow/dags/weather_dag.py","lineno":14,"logger":"py.warnings"}
+{"timestamp":"2026-05-18T12:14:18.430996Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.431144Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.431279Z","level":"info","event":"Current task name:quality_tests","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.431326Z","level":"info","event":"Dag name:weather_pipeline_maroc","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432114Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432373Z","level":"info","event":"  TESTS QUALITE — 2026-05-18 13:14:18","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432419Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432457Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432521Z","level":"info","event":"🥉 TESTS BRONZE LAYER","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432568Z","level":"info","event":"------------------------------------------------------------","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.432605Z","level":"info","event":"   ✅ Dossier Bronze existe : data/bronze/weather_raw","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.433131Z","level":"info","event":"   ✅ Au moins 1 fichier JSON présent (20 trouvés)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.433646Z","level":"info","event":"   ✅ Ville Marrakech : 5 fichier(s)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.433951Z","level":"info","event":"   ✅ Ville Tanger : 5 fichier(s)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434111Z","level":"info","event":"   ✅ Ville Dakhla : 5 fichier(s)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434263Z","level":"info","event":"   ✅ Ville Essaouira : 5 fichier(s)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434388Z","level":"info","event":"   ✅ JSON valide avec champ main.temp : data_17h.json","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434456Z","level":"info","event":"   ✅ JSON valide avec champ main.temp : data_19h.json","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434511Z","level":"info","event":"   ✅ JSON valide avec champ main.temp : data_00h.json","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434553Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434594Z","level":"info","event":"🥈 TESTS SILVER LAYER","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434633Z","level":"info","event":"------------------------------------------------------------","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.434671Z","level":"info","event":"   ✅ Fichier Silver existe : data/silver/weather_clean/weather_clean.csv","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.435949Z","level":"info","event":"   ✅ DataFrame non vide (20 lignes)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436117Z","level":"info","event":"   ✅ Colonne 'city' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436213Z","level":"info","event":"   ✅ Colonne 'temperature' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436255Z","level":"info","event":"   ✅ Colonne 'humidity' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436291Z","level":"info","event":"   ✅ Colonne 'wind_speed' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436326Z","level":"info","event":"   ✅ Colonne 'weather_main' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436361Z","level":"info","event":"   ✅ Colonne 'event_timestamp' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436399Z","level":"info","event":"   ✅ Colonne 'ingestion_timestamp' présente","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436677Z","level":"info","event":"   ✅ Aucune valeur nulle dans 'city'","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436821Z","level":"info","event":"   ✅ Aucune valeur nulle dans 'temperature'","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.436955Z","level":"info","event":"   ✅ Colonne 'temperature' de type numérique","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437064Z","level":"info","event":"   ✅ Colonne 'humidity' de type numérique","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437127Z","level":"info","event":"   ✅ Températures dans la plage [-20, 55]°C","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437199Z","level":"info","event":"   ✅ Humidité dans la plage [0, 100]%","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437237Z","level":"info","event":"   ✅ Vitesse du vent ≥ 0","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437273Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437310Z","level":"info","event":"🥇 TESTS GOLD LAYER","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437351Z","level":"info","event":"------------------------------------------------------------","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437418Z","level":"info","event":"   ✅ Fichier weather_scores.csv existe","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437472Z","level":"info","event":"   ✅ Fichier best_city.csv existe","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437511Z","level":"info","event":"   ✅ Fichier ranking.csv existe","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437818Z","level":"info","event":"   ✅ KPI weather_score présent","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.437942Z","level":"info","event":"   ✅ Tous les scores entre 0 et 100","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438010Z","level":"info","event":"   ✅ Rangs corrects de 1 à 4 : [1, 2, 3, 4]","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438502Z","level":"info","event":"   ✅ best_city.csv contient exactement 1 ligne","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438626Z","level":"info","event":"   ✅ La meilleure ville a le rang 1","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438768Z","level":"info","event":"   ✅ Colonne 'date' présente (exigence sujet)","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438856Z","level":"info","event":"   ✅ Catégories valides : {'Excellent'}","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438900Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438940Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438977Z","level":"info","event":"  RESULTAT FINAL : 35/35 tests réussis","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.439014Z","level":"info","event":"  🎉 TOUS LES TESTS SONT OK !","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.439049Z","level":"info","event":"============================================================","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.438748Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":229}
+{"timestamp":"2026-05-18T12:14:18.450187Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.450284Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2026-05-18T12:14:18.450616Z","level":"info","event":"Task operator:<Task(PythonOperator): quality_tests>","logger":"task.stdout"}

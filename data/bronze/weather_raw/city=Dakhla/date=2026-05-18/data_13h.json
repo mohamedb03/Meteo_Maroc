@@ -1,0 +1,45 @@
+{
+  "coord": {
+    "lon": -15.9431,
+    "lat": 23.6941
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "ciel dégagé",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 22.01,
+    "feels_like": 21.55,
+    "temp_min": 22.01,
+    "temp_max": 22.01,
+    "pressure": 1020,
+    "humidity": 49,
+    "sea_level": 1020,
+    "grnd_level": 1019
+  },
+  "visibility": 8000,
+  "wind": {
+    "speed": 12.86,
+    "deg": 40
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1779106454,
+  "sys": {
+    "type": 1,
+    "id": 2403,
+    "country": "MA",
+    "sunrise": 1779085234,
+    "sunset": 1779133204
+  },
+  "timezone": 3600,
+  "id": 2463447,
+  "name": "Dakhla",
+  "cod": 200
+}

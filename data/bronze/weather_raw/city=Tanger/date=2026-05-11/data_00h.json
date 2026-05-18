@@ -1,0 +1,45 @@
+{
+  "coord": {
+    "lon": -5.8137,
+    "lat": 35.7806
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "ciel dégagé",
+      "icon": "01n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 16.64,
+    "feels_like": 16.37,
+    "temp_min": 16.64,
+    "temp_max": 16.64,
+    "pressure": 1017,
+    "humidity": 77,
+    "sea_level": 1017,
+    "grnd_level": 1011
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 1.54,
+    "deg": 180
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1778454376,
+  "sys": {
+    "type": 1,
+    "id": 2416,
+    "country": "MA",
+    "sunrise": 1778476890,
+    "sunset": 1778527070
+  },
+  "timezone": 3600,
+  "id": 2530335,
+  "name": "Tanger",
+  "cod": 200
+}

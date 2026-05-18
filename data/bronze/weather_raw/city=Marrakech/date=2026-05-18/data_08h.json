@@ -1,0 +1,45 @@
+{
+  "coord": {
+    "lon": -8.0083,
+    "lat": 31.6315
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "nuageux",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 16.04,
+    "feels_like": 15.58,
+    "temp_min": 16.04,
+    "temp_max": 16.04,
+    "pressure": 1019,
+    "humidity": 72,
+    "sea_level": 1019,
+    "grnd_level": 964
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 2.57,
+    "deg": 90
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1779090644,
+  "sys": {
+    "type": 1,
+    "id": 2409,
+    "country": "MA",
+    "sunrise": 1779082429,
+    "sunset": 1779132200
+  },
+  "timezone": 3600,
+  "id": 2542997,
+  "name": "Marrakech",
+  "cod": 200
+}

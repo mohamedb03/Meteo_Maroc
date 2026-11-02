@@ -3,12 +3,13 @@ Configuration du projet d'ingestion météo
 Architecture des données - 4IASDG2 - EMSI
 """
 
+import os
+
 # ============================================================
 #  CLE API OPENWEATHER
 # ============================================================
-# Remplace la valeur ci-dessous par TA propre clé API
-# Récupérable sur https://openweathermap.org/api
-API_KEY = "eebb4f9c9e0df13032e7c72b9139c11d"
+# Définir la clé dans la variable d'environnement API_KEY.
+API_KEY = os.getenv("API_KEY")
 
 # Endpoint de l'API OpenWeather (current weather)
 API_URL = "https://api.openweathermap.org/data/2.5/weather"

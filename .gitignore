@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+airflow_venv/
+
+# Airflow runtime state
+airflow/airflow.db
+airflow/airflow.db-shm
+airflow/airflow.db-wal
+airflow/logs/
+airflow/simple_auth_manager_passwords.json.generated
+
+# Local tooling
+.DS_Store

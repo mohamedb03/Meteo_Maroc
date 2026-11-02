@@ -23,6 +23,11 @@ def fetch_weather(city):
     Appelle l'API OpenWeather pour une ville donnée.
     Retourne le JSON brut tel quel.
     """
+    if not API_KEY:
+        raise RuntimeError(
+            "La variable d'environnement API_KEY est requise pour l'ingestion."
+        )
+
     params = {
         "q": city["query"],
         "appid": API_KEY,
